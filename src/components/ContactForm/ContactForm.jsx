@@ -1,24 +1,19 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import AnimateOnScroll from "../AnimateOnScroll/AnimateOnScroll";
 import InputField from "../common/InputField";
-import SelectField from "../common/SelectField";
+import LazyMap from "./LazyMap";
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
-    name: "",
+    userName: "",
     projectname: "",
-    email: "",
-    Project: "",
-    Message: "",
+    userEmail: "",
+    userMobile: "",
+    userMessage: "",
   });
   const [errors, setErrors] = useState({});
   const [showThanks, setShowThanks] = useState(false);
   const [loader, setLoader] = useState(false);
-  const [isFormValid, setIsFormValid] = useState(false);
-
-  useEffect(() => {
-    const isValid = Object.values(formData).every((val) => val.trim() !== "");
-    setIsFormValid(isValid);
-  }, [formData]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,13 +22,14 @@ const ContactForm = () => {
 
   const validate = () => {
     let newErrors = {};
-    if (!formData.name.trim()) newErrors.name = "Name is required";
-    if (!formData.projectname.trim())
-      newErrors.projectname = "Project Name is required";
-    if (!formData.email.trim()) newErrors.email = "Email is required";
-    if (!formData.Project.trim())
-      newErrors.Project = "Project type is required";
-    if (!formData.Message.trim()) newErrors.Message = "Message is required";
+    if (!formData.userName.trim()) newErrors.userName = "User Name is required";
+    if (!formData.userMobile.trim())
+      newErrors.userMobile = "Mobile Name is required";
+    if (!formData.userEmail.trim())
+      newErrors.userEmail = "User Email is required";
+
+    if (!formData.userMessage.trim())
+      newErrors.userMessage = "userMessage is required";
     return newErrors;
   };
 
@@ -43,7 +39,7 @@ const ContactForm = () => {
       projectname: "",
       email: "",
       Project: "",
-      Message: "",
+      userMessage: "",
     });
   };
 
@@ -56,7 +52,6 @@ const ContactForm = () => {
 
     setLoader(true);
     try {
-      // Simulate API call
       const data = true;
       if (data) {
         setShowThanks(true);
@@ -70,96 +65,85 @@ const ContactForm = () => {
     }
   };
 
-  const projectOptions = [
-    "EdTech App",
-    "eCommerce Apps",
-    "CRM Apps",
-    "Health Apps",
-    "Web Analytics Apps",
-    "Banking Apps",
-  ];
-
   return (
     <section className=" pb-24 !pt-0">
       <div className="container mx-auto  px-4">
         <div className="grid md:grid-cols-12 grid-cols-1 gap-8">
           <div className="col-span-6 md:pt-12 pt-0 relative">
-            <div
-              data-aos="flip-up"
-              className="max-w-xl mx-auto text-center my-6"
-            >
-              <h1 className="font-bold text-darken my-3 text-2xl">
-                Contact <span className="text-yellow-500">Form.</span>
-              </h1>
-              <p className="leading-relaxed text-gray-500">
-                contaus for more information .
-              </p>
-            </div>
-            <form
-              onSubmit={handleSubmit}
-              className="flex flex-wrap  w-full m-auto justify-between"
-              data-aos="fade-right"
-              data-aos-delay="500"
-            >
-              <div className="sm:flex gap-3 w-full">
-                <InputField
-                  label="User Name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  error={errors.name}
-                />
-                <InputField
-                  label="Project Name"
-                  name="projectname"
-                  value={formData.projectname}
-                  onChange={handleChange}
-                  error={errors.projectname}
-                />
+            <AnimateOnScroll type="zoom-in" delay={0.1}>
+              <div className="max-w-xl mx-auto text-center my-6">
+                <h1 className="text-xl md:text-3xl font-bold text-gray-900 mb-4 leading-tight">
+                  Contact{" "}
+                  <span className="bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
+                    Form
+                  </span>
+                </h1>
+                <p className="leading-relaxed text-gray-500">
+                  We’d love to hear from you! Whether you have a question,
+                  suggestion, or want to collaborate, feel free to reach out to
+                  us.
+                </p>
               </div>
-              <div className="sm:flex gap-3 w-full">
-                <InputField
-                  label="Email Address"
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  error={errors.email}
-                />
-                <SelectField
-                  label="Project Type"
-                  name="Project"
-                  value={formData.Project}
-                  onChange={handleChange}
-                  options={projectOptions}
-                  error={errors.Project}
-                />
-              </div>
-              <div className="w-full">
-                <InputField
-                  label="Message"
-                  name="Message"
-                  value={formData.Message}
-                  onChange={handleChange}
-                  type="textarea"
-                  error={errors.Message}
-                />
-              </div>
-              <div className="mx-0 my-2.5 w-full flex justify-center">
-                <button
-                  type="submit"
-                  disabled={!isFormValid || loader}
-                  className={`border leading-none px-6 text-lg font-medium py-4 rounded-lg 
-                    ${
-                      !isFormValid || loader
-                        ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                        : "bg-yellow-100 text-black  cursor-pointer"
-                    }`}
-                >
-                  Submit
-                </button>
-              </div>
-            </form>
+            </AnimateOnScroll>
+            <AnimateOnScroll type="fade-right" delay={0.1}>
+              <form
+                onSubmit={handleSubmit}
+                className="flex flex-wrap  w-full m-auto justify-between"
+              >
+                <div className="sm:flex gap-3 w-full">
+                  <InputField
+                    label="Full Name"
+                    name="userName"
+                    value={formData.userName}
+                    onChange={handleChange}
+                    error={errors.userName}
+                  />
+                  <InputField
+                    label="Mobile"
+                    name="userEmail"
+                    value={formData.userEmail}
+                    onChange={handleChange}
+                    error={errors.userEmail}
+                    maxLength={10}
+                  />
+                </div>
+                <div className="sm:flex gap-3 w-full">
+                  <InputField
+                    label="Email Address"
+                    type="email"
+                    name="userMobile"
+                    value={formData.userMobile}
+                    onChange={handleChange}
+                    error={errors.userMobile}
+                  />
+                </div>
+                <div className="w-full">
+                  <InputField
+                    label="Message"
+                    name="userMessage"
+                    value={formData.userMessage}
+                    onChange={handleChange}
+                    type="textarea"
+                    error={errors.userMessage}
+                  />
+                </div>
+                <div className="mx-0 my-2.5 w-full flex justify-center">
+                  <button
+                    type="submit"
+                    disabled={loader}
+                    className={`leading-none cursor-pointer px-6 text-lg font-medium py-4 rounded-lg transition-all duration-300 border
+    ${
+      loader
+        ? "bg-gray-300 text-gray-500 border-gray-400 cursor-not-allowed"
+        : "bg-gradient-to-r from-orange-600 to-red-600 text-white border-transparent shadow-md hover:shadow-lg hover:opacity-95"
+    }
+  `}
+                  >
+                    Submit
+                  </button>
+                </div>
+              </form>
+            </AnimateOnScroll>
             {showThanks && (
               <div className="text-white bg-green-400 rounded-full px-4 text-lg mb-4.5 mt-2 absolute flex items-center gap-2">
                 Request submitted successfully. Thank you.
@@ -167,12 +151,10 @@ const ContactForm = () => {
               </div>
             )}
           </div>
-          <div className="col-span-6" data-aos="fade-up" data-aos-delay="700">
-            <img
-              src="/img/contact.webp"
-              alt="Contact"
-  style={{ borderRadius: "0.5rem", width: "100%", maxHeight: "600px" }}
-            />
+          <div className="col-span-6">
+            <AnimateOnScroll type="fade-up" delay={0.1}>
+              <LazyMap />
+            </AnimateOnScroll>
           </div>
         </div>
       </div>

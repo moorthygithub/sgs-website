@@ -1,10 +1,8 @@
-import AboutSection1 from "../../components/AboutSection";
-import HeroSub from "../../components/HeroSub";
-import ChairPeronCarousel from "../../components/ChairPeronCarousel";
-import TeamCarousel from "../../components/TeamCarousel";
-import PageMeta from "../../components/common/PageMeta";
-import AboutUsDetails from "../../components/AboutUsDetails";
 import AboutSection from "../../components/AboutSection/AboutSection";
+import FeaturesSection from "../../components/FeaturesSection/FeaturesSection";
+import HeroSub from "../../components/HeroSub";
+import MissionPage from "../../components/MissionSection/MissionSection";
+import PageMeta from "../../components/common/PageMeta";
 
 const About = () => {
   const breadcrumbLinks = [
@@ -13,17 +11,21 @@ const About = () => {
   ];
   return (
     <>
-      <PageMeta title="About Us | Dhakshin Ekkam" />
+      <PageMeta title="About Us | Samyutk Gujarati Samaj" />
       <HeroSub
         title="About Us"
         description="Discover who we are, what we do, and how we work together to create meaningful experiences."
         breadcrumbLinks={breadcrumbLinks}
       />
       <AboutSection />
+      <MissionPage />
+      <FeaturesSection />
+
+      {/* <AboutSection />
       <AboutUsDetails />
       <ChairPeronCarousel />
       <AboutSection1 />
-      <TeamCarousel />
+      <TeamCarousel /> */}
     </>
   );
 };

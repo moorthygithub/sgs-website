@@ -9,10 +9,10 @@ const Member = () => {
   ];
   return (
     <>
-      <PageMeta title="Member | Dhakshin Ekkam" />
+      <PageMeta title="Member | Samyutk Gujarati Samaj" />
       <HeroSub
         title="Member"
-        description="Meet the proud members of Dhakshin Ekkam, who form the heart of our community. Each member contributes their time, talent, and passion to build lasting connections and create meaningful impact together."
+        description="Meet the proud members of Samyutk Gujarati Samaj, who form the heart of our community. Each member contributes their time, talent, and passion to build lasting connections and create meaningful impact together."
         breadcrumbLinks={breadcrumbLinks}
       />
       <MemberForm />
