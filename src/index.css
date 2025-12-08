@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+.bg-cream {
+  background-color: #fdd1c36e;
+}
+.bg-yellow-500 {
+  background-color: #b33409;
+}
+.text-yellow-500 {
+  color: #2c20d6;
+}
+.floating {
+  animation-name: floating;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+@keyframes floating {
+  0% {
+    transform: translate(0, 0px);
+  }
+  50% {
+    transform: translate(0, 8px);
+  }
+  100% {
+    transform: translate(0, -0px);
+  }
+}
+.floating-4 {
+  animation-name: floating;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+@keyframes floating-4 {
+  0% {
+    transform: translate(0, 0px);
+  }
+  50% {
+    transform: translate(0, 8px);
+  }
+  100% {
+    transform: translate(0, -0px);
+  }
+}
+.text-darken {
+  color: #2f327d;
+}
+.team-carousel .slick-slide > div {
+  display: flex;
+  justify-content: center;
+  width: 100% !important;
+}
+
+html {
+  scroll-behavior: smooth;
+}
