@@ -1,170 +1,225 @@
+import {
+  ArrowRight,
+  Award,
+  Calendar,
+  ChevronLeft,
+  ChevronRight,
+  MessageCircle,
+  Users,
+} from "lucide-react";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 
-function Navbar() {
-  const [open, setOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
+const Banner = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+
+  const slides = [
+    {
+      id: 1,
+      title: "Samyukt Gujarati Samaj",
+      subtitle: "Connect with 10,000+ members worldwide",
+      image: "https://samyuktgujaratisamaj.com/draft1/img/slider/banner1.jpg",
+      cta: "Become a Member",
+      stats: { icon: Users, value: "10,000+", label: "Active Members" },
+    },
+    {
+      id: 2,
+      title: "Sardar Patel Bhavan",
+      subtitle: "Learn from industry experts and thought leaders",
+      image: "https://samyuktgujaratisamaj.com/draft1/img/slider/banner2.jpg",
+      cta: "View Events",
+      stats: { icon: Calendar, value: "200+", label: "Events Annually" },
+    },
+    {
+      id: 3,
+      title: "Share Knowledge",
+      subtitle: "Engage in meaningful discussions and collaborations",
+      image:
+        "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1920&h=800&fit=crop",
+      cta: "Start Discussion",
+      stats: { icon: MessageCircle, value: "50,000+", label: "Conversations" },
+    },
+    {
+      id: 4,
+      title: "Achieve Your Goals",
+      subtitle: "Celebrate success and support each other's growth",
+      image:
+        "https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=1920&h=800&fit=crop",
+      cta: "Get Started",
+      stats: { icon: Award, value: "95%", label: "Success Rate" },
+    },
+  ];
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    };
+    if (!isAutoPlaying) return;
+    const interval = setInterval(
+      () => setCurrentSlide((prev) => (prev + 1) % slides.length),
+      6000
+    );
+    return () => clearInterval(interval);
+  }, [isAutoPlaying, slides.length]);
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const goToSlide = (index) => {
+    setCurrentSlide(index);
+    setIsAutoPlaying(false);
+    setTimeout(() => setIsAutoPlaying(true), 12000);
+  };
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % slides.length);
+    setIsAutoPlaying(false);
+    setTimeout(() => setIsAutoPlaying(true), 12000);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+    setIsAutoPlaying(false);
+    setTimeout(() => setIsAutoPlaying(true), 12000);
+  };
 
   return (
-    <div
-      className={`w-full fixed top-0 left-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-yellow-100 shadow-md" : "bg-transparent"
-      }`}
-    >
-      <div className="max-w-screen-xl mx-auto px-6 md:px-8">
-        <div className="flex items-center justify-between py-4">
-          <div className="relative">
-            <Link
-              to="/"
-              className="text-lg relative z-50 font-bold tracking-widest text-gray-900 rounded-lg focus:outline-none focus:shadow-outline"
+    <div className="relative w-full h-[550px] sm:h-[600px] md:h-[700px] overflow-hidden bg-slate-900 group">
+      <div className="relative w-full h-full">
+        {slides.map((slide, index) => {
+          const StatsIcon = slide.stats.icon;
+
+          return (
+            <div
+              key={slide.id}
+              className={`absolute inset-0 transition-all duration-1000 ${
+                index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
+              }`}
             >
-              Dhakshin Ekkam
-            </Link>
-            <svg
-              className="h-11 z-40 absolute -top-2 -left-3"
-              viewBox="0 0 79 79"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M35.2574 2.24264C37.6005 -0.100501 41.3995 -0.100505 43.7426 2.24264L76.7574 35.2574C79.1005 37.6005 79.1005 41.3995 76.7574 43.7426L43.7426 76.7574C41.3995 79.1005 37.6005 79.1005 35.2574 76.7574L2.24264 43.7426C-0.100501 41.3995 -0.100505 37.6005 2.24264 35.2574L35.2574 2.24264Z"
-                fill="#65DAFF"
+              <div
+                className="absolute inset-0 bg-cover bg-center transition-transform duration-[8000ms]"
+                style={{
+                  backgroundImage: `url(${slide.image})`,
+                  transform:
+                    index === currentSlide ? "scale(1.05)" : "scale(1)",
+                }}
               />
-            </svg>
-          </div>
 
-          {/* ---- Hamburger (Mobile only) ---- */}
+              <div className="absolute inset-0 bg-black/40 z-10" />
+
+              <div
+                className="absolute inset-0 z-10 opacity-10"
+                style={{
+                  backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E")`,
+                }}
+              />
+
+              <div className="relative z-30 h-full max-w-7xl mx-auto px-4 sm:px-6 md:px-12 mt-12 md:mt-20 flex items-center">
+                <div className="max-w-3xl">
+                  <h1
+                    className={`text-3xl sm:text-4xl md:text-6xl font-bold text-white leading-tight mb-3 transition-all duration-1000 ${
+                      index === currentSlide
+                        ? "opacity-100 translate-y-0"
+                        : "opacity-0 translate-y-10"
+                    }`}
+                  >
+                    {slide.title}
+                  </h1>
+
+                  <p
+                    className={`text-base sm:text-lg md:text-2xl text-white/90 font-light mb-4 transition-all duration-1000 ${
+                      index === currentSlide
+                        ? "opacity-100 translate-y-0"
+                        : "opacity-0 translate-y-10"
+                    }`}
+                  >
+                    {slide.subtitle}
+                  </p>
+
+                  <div
+                    className={`flex flex-col sm:flex-row gap-4 mb-4 transition-all duration-1000 ${
+                      index === currentSlide
+                        ? "opacity-100 translate-y-0"
+                        : "opacity-0 translate-y-10"
+                    }`}
+                  >
+                    <button className="group px-8 py-4 bg-white text-indigo-900 font-semibold rounded-xl hover:bg-white/90 transform hover:scale-105 transition-all shadow-xl flex items-center gap-2">
+                      {slide.cta}
+                      <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                    </button>
+
+                    <button className="px-8 py-4 bg-white/10 backdrop-blur-md text-white font-semibold rounded-xl hover:bg-white/20 transition-all border border-white/30">
+                      Learn More
+                    </button>
+                  </div>
+
+                  {/* Stats Badge */}
+                  <div
+                    className={`inline-flex items-center gap-4 px-4 py-3 sm:px-6 sm:py-4 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 transition-all duration-1000 ${
+                      index === currentSlide
+                        ? "opacity-100 translate-y-0"
+                        : "opacity-0 translate-y-10"
+                    }`}
+                  >
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-xl flex items-center justify-center">
+                      <StatsIcon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                    </div>
+
+                    <div>
+                      <div className="text-xl sm:text-2xl font-bold text-white">
+                        {slide.stats.value}
+                      </div>
+                      <div className="text-sm text-white/80">
+                        {slide.stats.label}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      <button
+        onClick={prevSlide}
+        className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-40 bg-white/10 backdrop-blur-md p-3 sm:p-4 rounded-xl hover:bg-white/20 hover:scale-105 transition-all opacity-0 group-hover:opacity-100 border border-white/20 cursor-pointer"
+      >
+        <ChevronLeft className="w-6 h-6 text-white" />
+      </button>
+
+      <button
+        onClick={nextSlide}
+        className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-40 bg-white/10 backdrop-blur-md p-3 sm:p-4 rounded-xl hover:bg-white/20 hover:scale-105 transition-all opacity-0 group-hover:opacity-100 border border-white/20 cursor-pointer"
+      >
+        <ChevronRight className="w-6 h-6 text-white" />
+      </button>
+
+      <div className="absolute bottom-6 md:bottom-12 left-1/2 -translate-x-1/2 z-40 flex items-center gap-3 bg-white/10 backdrop-blur-md px-4 sm:px-6 py-2 sm:py-3 rounded-full border border-white/20">
+        {slides.map((_, index) => (
           <button
-            className="md:hidden rounded-lg focus:outline-none focus:shadow-outline"
-            onClick={() => setOpen(!open)}
-          >
-            <svg fill="currentColor" viewBox="0 0 20 20" className="w-6 h-6">
-              {!open ? (
-                <path
-                  fillRule="evenodd"
-                  d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z"
-                  clipRule="evenodd"
-                ></path>
-              ) : (
-                <path
-                  fillRule="evenodd"
-                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                  clipRule="evenodd"
-                ></path>
-              )}
-            </svg>
-          </button>
+            key={index}
+            onClick={() => goToSlide(index)}
+            className={`rounded-full transition-all ${
+              index === currentSlide
+                ? "w-8 sm:w-10 h-2.5 bg-white shadow-lg"
+                : "w-2.5 h-2.5 bg-white/40 hover:bg-white/70"
+            }`}
+          ></button>
+        ))}
+      </div>
 
-          <nav className="hidden md:flex space-x-6">
-            <Link
-              to="/"
-              className="px-3 py-2 text-sm font-medium hover:text-gray-900"
-            >
-              Home
-            </Link>
-            <Link
-              to="/about"
-              className="px-3 py-2 text-sm font-medium hover:text-gray-900"
-            >
-              About Us
-            </Link>
-            <Link
-              to="/gallery"
-              className="px-3 py-2 text-sm font-medium hover:text-gray-900"
-            >
-              Gallery
-            </Link>
-            <Link
-              to="/member"
-              className="px-3 py-2 text-sm font-medium hover:text-gray-900"
-            >
-              Member
-            </Link>
-            <Link
-              to="/community"
-              className="px-3 py-2 text-sm font-medium hover:text-gray-900"
-            >
-              Community
-            </Link>
-            <Link
-              to="/contact"
-              className="px-3 py-2 text-sm font-medium hover:text-gray-900"
-            >
-              Contact
-            </Link>
-          </nav>
-        </div>
-        {/* {open && (
-          // <div
-          //   className={`flex flex-col space-y-2  pb-4 md:hidden ${
-          //     isScrolled ? "" : "bg-cream"
-          //   } `}
-          // > */}
+      <div className="absolute bottom-6 right-4 md:bottom-12 md:right-8 z-40 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/20 text-white text-sm font-medium">
+        <span className="text-lg font-bold">{currentSlide + 1}</span>
+        <span className="opacity-60"> / {slides.length}</span>
+      </div>
+
+      <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/10 z-40">
         <div
-          className={`flex flex-col space-y-2 pb-4 md:hidden overflow-hidden transition-all duration-500 ease-in-out ${
-            open ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-          } ${isScrolled ? "" : "bg-cream"}`}
-        >
-          <Link
-            to="/"
-            className="px-3 py-2 text-sm font-medium hover:text-gray-900"
-            onClick={() => setOpen(false)}
-          >
-            Home
-          </Link>
-          <Link
-            to="/about"
-            className="px-3 py-2 text-sm font-medium hover:text-gray-900"
-            onClick={() => setOpen(false)}
-          >
-            About Us
-          </Link>
-          <Link
-            to="/gallery"
-            onClick={() => setOpen(false)}
-            className="px-3 py-2 text-sm font-medium hover:text-gray-900"
-          >
-            Gallery
-          </Link>
-          <Link
-            to="/member"
-            onClick={() => setOpen(false)}
-            className="px-3 py-2 text-sm font-medium hover:text-gray-900"
-          >
-            Member
-          </Link>
-          <Link
-            to="/community"
-            onClick={() => setOpen(false)}
-            className="px-3 py-2 text-sm font-medium hover:text-gray-900"
-          >
-            Community
-          </Link>
-          <Link
-            to="/contact"
-            onClick={() => setOpen(false)}
-            className="px-3 py-2 text-sm font-medium hover:text-gray-900"
-          >
-            Contact
-          </Link>
-        </div>
-        {/* )} */}
+          className="h-full bg-gradient-to-r from-[#ca4b7e] via-[#fecd28] via-[#66c3d0] to-[#b0cb1f] transition-all"
+          style={{
+            width: isAutoPlaying ? "100%" : "0%",
+            transition: isAutoPlaying ? "width 6s linear" : "width 0.3s",
+          }}
+          key={currentSlide}
+        />
       </div>
     </div>
   );
-}
+};
 
-export default Navbar;
+export default Banner;

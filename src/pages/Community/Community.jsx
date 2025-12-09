@@ -9,10 +9,10 @@ const Community = () => {
   ];
   return (
     <>
-      <PageMeta title="Community | Dhakshin Ekkam" />
+      <PageMeta title="Community | Samyutk Gujarati Samaj" />
       <HeroSub
         title="Community"
-        description="Discover the vibrant Dhakshin Ekkam community — a family bound by unity, culture, and shared values. Together, we celebrate traditions, foster friendships, and create a supportive space where everyone belongs."
+        description="Discover the vibrant Samyutk Gujarati Samaj community — a family bound by unity, culture, and shared values. Together, we celebrate traditions, foster friendships, and create a supportive space where everyone belongs."
         breadcrumbLinks={breadcrumbLinks}
       />
       <CommunityForm />

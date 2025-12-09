@@ -1,6 +1,7 @@
 import PageMeta from "../../components/common/PageMeta";
 import GalleryCard from "../../components/GalleryCard";
 import HeroSub from "../../components/HeroSub";
+import ModernGallery from "../../components/ModernGallery/ModernGallery";
 
 const Gallery = () => {
   const breadcrumbLinks = [
@@ -9,13 +10,14 @@ const Gallery = () => {
   ];
   return (
     <>
-      <PageMeta title="Gallery | Dhakshin Ekkam" />
+      <PageMeta title="Gallery | Samyutk Gujarati Samaj" />
       <HeroSub
         title="Gallery"
-        description="Explore moments captured from our events, celebrations, and community gatherings. Our gallery showcases the spirit, culture Dhakshin Ekkam."
+        description="Explore moments captured from our events, celebrations, and community gatherings. Our gallery showcases the spirit, culture Samyutk Gujarati Samaj."
         breadcrumbLinks={breadcrumbLinks}
       />
-      <GalleryCard
+      <ModernGallery />
+      {/* <GalleryCard
         bigImage="img/laptop-news.png"
         smallImages={[
           "img/children-laptop.png",
@@ -32,7 +34,7 @@ const Gallery = () => {
           "img/laptop-news.png",
           "img/cat-laptop.png",
         ]}
-      />
+      /> */}
     </>
   );
 };

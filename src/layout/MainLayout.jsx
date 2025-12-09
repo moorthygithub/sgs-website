@@ -4,6 +4,7 @@ import Footer from "../components/Footer";
 import { useEffect } from "react";
 import ScrollToTop from "../components/ScrollToTop";
 import RouteLoader from "../components/common/RouteLoader";
+import FooterSection from "../components/FooterSection/FooterSection";
 
 function MainLayout() {
   const { pathname } = useLocation();
@@ -20,7 +21,7 @@ function MainLayout() {
         <Outlet />
       </main>
 
-      <Footer />
+      <FooterSection />
     </div>
   );
 }

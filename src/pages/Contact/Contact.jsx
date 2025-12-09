@@ -12,16 +12,13 @@ const Contact = () => {
   ];
   return (
     <>
-      <PageMeta title="Contact | Dhakshin Ekkam" />
+      <PageMeta title="Contact | Samyutk Gujarati Samaj" />
       <HeroSub
         title="Contact"
         description="We’d love to hear from you! Whether you have questions, suggestions, or just want to connect, our team is here to help. Reach out to us and become part of a growing community built on care, support, and togetherness."
         breadcrumbLinks={breadcrumbLinks}
       />
-      <ContactInfo />
       <ContactForm />
-      <LazyMap />
-      <ContactLocation />
     </>
   );
 };

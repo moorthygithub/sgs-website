@@ -8,6 +8,8 @@ import {
   Users,
 } from "lucide-react";
 import { useEffect, useState } from "react";
+import AnimateOnScroll from "../AnimateOnScroll/AnimateOnScroll";
+import { motion } from "framer-motion";
 
 const Banner = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -76,6 +78,20 @@ const Banner = () => {
     setIsAutoPlaying(false);
     setTimeout(() => setIsAutoPlaying(true), 12000);
   };
+  const textVariant = {
+    hidden: { opacity: 0, y: 40 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.8 } },
+  };
+
+  const leftVariant = {
+    hidden: { opacity: 0, x: -40 },
+    show: { opacity: 1, x: 0, transition: { duration: 0.8 } },
+  };
+
+  const zoomVariant = {
+    hidden: { opacity: 0, scale: 0.85 },
+    show: { opacity: 1, scale: 1, transition: { duration: 0.8 } },
+  };
 
   return (
     <div className="relative w-full h-[550px] sm:h-[600px] md:h-[700px] overflow-hidden bg-slate-900 group">
@@ -110,32 +126,34 @@ const Banner = () => {
 
               <div className="relative z-30 h-full max-w-7xl mx-auto px-4 sm:px-6 md:px-12 mt-12 md:mt-20 flex items-center">
                 <div className="max-w-3xl">
-                  <h1
-                    className={`text-3xl sm:text-4xl md:text-6xl font-bold text-white leading-tight mb-3 transition-all duration-1000 ${
-                      index === currentSlide
-                        ? "opacity-100 translate-y-0"
-                        : "opacity-0 translate-y-10"
-                    }`}
+                  <motion.h1
+                    key={currentSlide + "-title"}
+                    variants={textVariant}
+                    initial="hidden"
+                    animate="show"
+                    className="text-3xl sm:text-4xl md:text-6xl font-bold text-white leading-tight mb-3"
                   >
                     {slide.title}
-                  </h1>
+                  </motion.h1>
 
-                  <p
-                    className={`text-base sm:text-lg md:text-2xl text-white/90 font-light mb-4 transition-all duration-1000 ${
-                      index === currentSlide
-                        ? "opacity-100 translate-y-0"
-                        : "opacity-0 translate-y-10"
-                    }`}
+                  <motion.p
+                    key={currentSlide + "-subtitle"}
+                    variants={textVariant}
+                    initial="hidden"
+                    animate="show"
+                    transition={{ delay: 0.1 }}
+                    className="text-base sm:text-lg md:text-2xl text-white/90 font-light mb-4"
                   >
                     {slide.subtitle}
-                  </p>
+                  </motion.p>
 
-                  <div
-                    className={`flex flex-col sm:flex-row gap-4 mb-4 transition-all duration-1000 ${
-                      index === currentSlide
-                        ? "opacity-100 translate-y-0"
-                        : "opacity-0 translate-y-10"
-                    }`}
+                  <motion.div
+                    key={currentSlide + "-buttons"}
+                    variants={leftVariant}
+                    initial="hidden"
+                    animate="show"
+                    transition={{ delay: 0.2 }}
+                    className="flex flex-col sm:flex-row gap-4 mb-4"
                   >
                     <button className="group px-8 py-4 bg-white text-indigo-900 font-semibold rounded-xl hover:bg-white/90 transform hover:scale-105 transition-all shadow-xl flex items-center gap-2">
                       {slide.cta}
@@ -145,15 +163,15 @@ const Banner = () => {
                     <button className="px-8 py-4 bg-white/10 backdrop-blur-md text-white font-semibold rounded-xl hover:bg-white/20 transition-all border border-white/30">
                       Learn More
                     </button>
-                  </div>
+                  </motion.div>
 
-                  {/* Stats Badge */}
-                  <div
-                    className={`inline-flex items-center gap-4 px-4 py-3 sm:px-6 sm:py-4 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 transition-all duration-1000 ${
-                      index === currentSlide
-                        ? "opacity-100 translate-y-0"
-                        : "opacity-0 translate-y-10"
-                    }`}
+                  <motion.div
+                    key={currentSlide + "-stats"}
+                    variants={zoomVariant}
+                    initial="hidden"
+                    animate="show"
+                    transition={{ delay: 0.3 }}
+                    className="inline-flex items-center gap-4 px-4 py-3 sm:px-6 sm:py-4 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20"
                   >
                     <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-xl flex items-center justify-center">
                       <StatsIcon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
@@ -167,11 +185,10 @@ const Banner = () => {
                         {slide.stats.label}
                       </div>
                     </div>
-                  </div>
+                  </motion.div>
                 </div>
               </div>
-            </div>  
-
+            </div>
           );
         })}
       </div>
