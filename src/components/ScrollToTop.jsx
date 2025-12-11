@@ -29,13 +29,13 @@ export default function ScrollToTop() {
   }, []);
 
   return (
-    <div className="fixed bottom-8 right-8 z-20">
+    <div className="fixed bottom-8 right-8 z-20 cursor-pointer">
       <div className="flex items-center gap-2.5">
         {isVisible && (
           <div
             onClick={scrollToTop}
             aria-label="scroll to top"
-            className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-md bg-yellow-100 text-black shadow-md transition duration-300 ease-in-out hover:bg-primary/60"
+            className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-md bg-gradient-to-br from-orange-500 to-red-500 text-black shadow-md transition duration-300 ease-in-out hover:bg-primary/60"
           >
             <ArrowUp className="h-5 w-5" />
           </div>

@@ -2,7 +2,7 @@ import toast from "react-hot-toast";
 import { CheckCircle, XCircle } from "lucide-react";
 
 const ToastContainer = ({ type, message, t }) => {
-  const isSuccess = type === "success";
+  const isSuccess = type == "success";
 
   return (
     <div
@@ -33,7 +33,9 @@ const ToastContainer = ({ type, message, t }) => {
 };
 
 export const showSuccessToast = (message) => {
-  toast.custom((t) => <ToastContainer type="success" message={message} t={t} />);
+  toast.custom((t) => (
+    <ToastContainer type="success" message={message} t={t} />
+  ));
 
   // Confetti
   import("canvas-confetti").then((confetti) => {
@@ -47,6 +49,4 @@ export const showSuccessToast = (message) => {
 
 export const showErrorToast = (message) => {
   toast.custom((t) => <ToastContainer type="error" message={message} t={t} />);
-
-
 };

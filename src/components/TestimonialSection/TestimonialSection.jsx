@@ -103,11 +103,16 @@ export default function TestimonialCarousel() {
           {/* Header */}
           <AnimateOnScroll type="fade-down" delay={0.15}>
             <div className="text-center mb-20">
-              <div className="inline-flex items-center gap-2 bg-white border border-orange-200 text-orange-600 px-6 py-3 rounded-full text-sm font-bold shadow-lg mb-6">
-                <Star className="w-4 h-4 fill-current" />
-                TESTIMONIALS
-              </div>
-
+              <motion.div
+                initial={{ scale: 0 }}
+                whileInView={{ scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, type: "spring" }}
+                className="inline-flex items-center gap-2 bg-orange-50 text-orange-600 px-6 py-2.5 rounded-full text-sm font-semibold tracking-wide border border-orange-200"
+              >
+                <Star className="w-4 h-4" />
+                TESTIMONIALS{" "}
+              </motion.div>{" "}
               <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
                 Our Clients Say!
               </h2>
