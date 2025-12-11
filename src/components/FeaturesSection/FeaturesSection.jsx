@@ -1,11 +1,10 @@
-import React from "react";
 import { motion } from "framer-motion";
-import { Globe, Clock, Headphones, CheckCircle } from "lucide-react";
+import { CheckCircle, Clock, Globe, Headphones, Sparkles } from "lucide-react";
 import AnimateOnScroll from "../AnimateOnScroll/AnimateOnScroll";
 
 const FeatureCard = ({ icon: Icon, title, description, delay }) => {
   return (
-    <AnimateOnScroll delay={delay} type="fade-right">
+    <AnimateOnScroll delay={delay} type="fade-left">
       <motion.div whileHover={{ x: 10 }} className="flex gap-5 group">
         <div className="shrink-0">
           <div className="bg-gradient-to-br from-orange-100 to-orange-200 p-4 rounded-2xl group-hover:scale-110 transition-transform duration-300 group-hover:shadow-lg">
@@ -56,9 +55,16 @@ export default function FeaturesSection() {
           <div className="space-y-10">
             <AnimateOnScroll type="fade-left">
               <div className="space-y-4">
-                <span className="bg-orange-100 text-orange-600 px-5 py-2 rounded-full text-sm font-semibold inline-block">
+                <motion.div
+                  initial={{ scale: 0 }}
+                  whileInView={{ scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, type: "spring" }}
+                  className="inline-flex items-center gap-2 bg-orange-50 text-orange-600 px-6 py-2.5 rounded-full text-sm font-semibold tracking-wide border border-orange-200"
+                >
+                  <Sparkles className="w-4 h-4" />
                   OUR FEATURES
-                </span>
+                </motion.div>
                 <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
                   We Are Trusted
                   <br />
@@ -78,7 +84,7 @@ export default function FeaturesSection() {
           </div>
 
           {/* Right Side - Image */}
-          <AnimateOnScroll type="fade-right">
+          <AnimateOnScroll type="fade-up">
             <motion.div whileHover={{ scale: 1.02 }} className="relative">
               {/* Image Container */}
               <div className="relative rounded-3xl overflow-hidden shadow-2xl aspect-square">

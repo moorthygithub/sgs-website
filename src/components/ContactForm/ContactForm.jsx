@@ -1,156 +1,171 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { Form, Input, Button, message } from "antd";
 import AnimateOnScroll from "../AnimateOnScroll/AnimateOnScroll";
-import InputField from "../common/InputField";
 import LazyMap from "./LazyMap";
+import { showErrorToast, showSuccessToast } from "../../utils/toast";
+import { useApiMutation } from "../../hooks/useApiMutation";
+
+const { TextArea } = Input;
 
 const ContactForm = () => {
-  const [formData, setFormData] = useState({
-    userName: "",
-    projectname: "",
-    userEmail: "",
-    userMobile: "",
-    userMessage: "",
-  });
-  const [errors, setErrors] = useState({});
-  const [showThanks, setShowThanks] = useState(false);
-  const [loader, setLoader] = useState(false);
+  const { trigger: submitTrigger, loading: loader } = useApiMutation();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const validate = () => {
-    let newErrors = {};
-    if (!formData.userName.trim()) newErrors.userName = "User Name is required";
-    if (!formData.userMobile.trim())
-      newErrors.userMobile = "Mobile Name is required";
-    if (!formData.userEmail.trim())
-      newErrors.userEmail = "User Email is required";
-
-    if (!formData.userMessage.trim())
-      newErrors.userMessage = "userMessage is required";
-    return newErrors;
-  };
-
-  const reset = () => {
-    setFormData({
-      name: "",
-      projectname: "",
-      email: "",
-      Project: "",
-      userMessage: "",
-    });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const validationErrors = validate();
-    setErrors(validationErrors);
-
-    if (Object.keys(validationErrors).length > 0) return;
-
-    setLoader(true);
+  const onFinish = async (values) => {
     try {
-      const data = true;
-      if (data) {
-        setShowThanks(true);
-        reset();
-        setTimeout(() => setShowThanks(false), 5000);
+      const res = await submitTrigger({
+        url: "/createContact",
+        method: "post",
+        data: values,
+      });
+      if (res.code == 201) {
+        showSuccessToast("Request submitted successfully!");
+        form.resetFields();
+      } else if (res.code == 422) {
+        showErrorToast(res.message || "Failed to save registration.");
       }
     } catch (err) {
       console.error(err);
-    } finally {
-      setLoader(false);
+      showErrorToast(err?.response?.data?.message || "Something went wrong!");
     }
   };
 
+  const [form] = Form.useForm();
+  const styledata =
+    "!rounded-lg !border-orange-300 focus:!border-orange-500 focus:!ring-2 focus:!ring-orange-300";
+
   return (
-    <section className=" pb-24 !pt-0">
-      <div className="container mx-auto  px-4">
+    <section className="pb-24 !pt-0">
+      <div className="container mx-auto px-4">
         <div className="grid md:grid-cols-12 grid-cols-1 gap-8">
-          <div className="col-span-6 md:pt-12 pt-0 relative">
-            <AnimateOnScroll type="zoom-in" delay={0.1}>
-              <div className="max-w-xl mx-auto text-center my-6">
-                <h1 className="text-xl md:text-3xl font-bold text-gray-900 mb-4 leading-tight">
-                  Contact{" "}
-                  <span className="bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
-                    Form
-                  </span>
-                </h1>
-                <p className="leading-relaxed text-gray-500">
-                  We’d love to hear from you! Whether you have a question,
-                  suggestion, or want to collaborate, feel free to reach out to
-                  us.
-                </p>
-              </div>
-            </AnimateOnScroll>
-            <AnimateOnScroll type="fade-right" delay={0.1}>
-              <form
-                onSubmit={handleSubmit}
-                className="flex flex-wrap  w-full m-auto justify-between"
-              >
-                <div className="sm:flex gap-3 w-full">
-                  <InputField
-                    label="Full Name"
-                    name="userName"
-                    value={formData.userName}
-                    onChange={handleChange}
-                    error={errors.userName}
-                  />
-                  <InputField
-                    label="Mobile"
+          <div className="col-span-6 relative">
+            <div className="relative w-full max-w-3xl mx-auto p-6 rounded-xl overflow-hidden bg-gradient-to-br from-orange-400/20 via-orange-300/10 to-orange-500/20 shadow-lg">
+              <AnimateOnScroll type="zoom-in" delay={0.1}>
+                <div className="max-w-xl mx-auto text-center my-6">
+                  <h1 className="text-xl md:text-3xl font-bold text-gray-900 mb-4 leading-tight">
+                    Contact{" "}
+                    <span className="bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
+                      Form
+                    </span>
+                  </h1>
+                  <p className="leading-relaxed text-gray-500">
+                    We’d love to hear from you! Whether you have a question,
+                    suggestion, or want to collaborate, feel free to reach out
+                    to us.
+                  </p>
+                </div>
+              </AnimateOnScroll>
+
+              <AnimateOnScroll type="fade-right" delay={0.1}>
+                <Form
+                  form={form}
+                  layout="vertical"
+                  onFinish={onFinish}
+                  requiredMark={false}
+                  className="flex flex-col gap-4"
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                    }
+                  }}
+                >
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                    <Form.Item
+                      className="!mb-0"
+                      label={
+                        <span className="!font-medium !text-gray-700">
+                          Full Name <span className="text-red-500">*</span>
+                        </span>
+                      }
+                      name="userName"
+                      rules={[
+                        { required: true, message: "User Name is required" },
+                      ]}
+                    >
+                      <Input
+                        placeholder="Enter your full name"
+                        className={styledata}
+                        size="large"
+                      />
+                    </Form.Item>
+
+                    <Form.Item
+                      className="!mb-0"
+                      label={
+                        <span className="!font-medium !text-gray-700">
+                          Mobile <span className="text-red-500">*</span>
+                        </span>
+                      }
+                      name="userMobile"
+                      rules={[
+                        { required: true, message: "Mobile No is required" },
+                        {
+                          pattern: /^[0-9]{10}$/,
+                          message: "Mobile must be 10 digits",
+                        },
+                      ]}
+                    >
+                      <Input
+                        placeholder="Enter your mobile number"
+                        maxLength={10}
+                        className={styledata}
+                        size="large"
+                      />
+                    </Form.Item>
+                  </div>
+
+                  <Form.Item
+                    className="!mb-0"
+                    label={
+                      <span className="!font-medium !text-gray-700">
+                        Email <span className="text-red-500">*</span>
+                      </span>
+                    }
                     name="userEmail"
-                    value={formData.userEmail}
-                    onChange={handleChange}
-                    error={errors.userEmail}
-                    maxLength={10}
-                  />
-                </div>
-                <div className="sm:flex gap-3 w-full">
-                  <InputField
-                    label="Email Address"
-                    type="email"
-                    name="userMobile"
-                    value={formData.userMobile}
-                    onChange={handleChange}
-                    error={errors.userMobile}
-                  />
-                </div>
-                <div className="w-full">
-                  <InputField
-                    label="Message"
-                    name="userMessage"
-                    value={formData.userMessage}
-                    onChange={handleChange}
-                    type="textarea"
-                    error={errors.userMessage}
-                  />
-                </div>
-                <div className="mx-0 my-2.5 w-full flex justify-center">
-                  <button
-                    type="submit"
-                    disabled={loader}
-                    className={`leading-none cursor-pointer px-6 text-lg font-medium py-4 rounded-lg transition-all duration-300 border
-    ${
-      loader
-        ? "bg-gray-300 text-gray-500 border-gray-400 cursor-not-allowed"
-        : "bg-gradient-to-r from-orange-600 to-red-600 text-white border-transparent shadow-md hover:shadow-lg hover:opacity-95"
-    }
-  `}
+                    rules={[
+                      { required: true, message: "Email is required" },
+                      { type: "email", message: "Enter a valid email" },
+                    ]}
                   >
-                    Submit
-                  </button>
-                </div>
-              </form>
-            </AnimateOnScroll>
-            {showThanks && (
-              <div className="text-white bg-green-400 rounded-full px-4 text-lg mb-4.5 mt-2 absolute flex items-center gap-2">
-                Request submitted successfully. Thank you.
-                <div className="w-3 h-3 rounded-full animate-spin border-2 border-solid border-white border-t-transparent"></div>
-              </div>
-            )}
+                    <Input
+                      placeholder="Enter your email"
+                      className={styledata}
+                      size="large"
+                    />
+                  </Form.Item>
+
+                  <Form.Item
+                    className="!mb-0"
+                    label={
+                      <span className="!font-medium !text-gray-700">
+                        Message <span className="text-red-500">*</span>
+                      </span>
+                    }
+                    name="userMessage"
+                    rules={[{ required: true, message: "Message is required" }]}
+                  >
+                    <TextArea
+                      rows={4}
+                      placeholder="Enter your message"
+                      className={styledata}
+                    />
+                  </Form.Item>
+
+                  <Form.Item className="flex justify-center">
+                    <Button
+                      htmlType="submit"
+                      type="primary"
+                      size="large"
+                      loading={loader}
+                      className="h-12 rounded-xl !bg-orange-600 hover:!bg-orange-700 text-white  font-semibold  border-0 hover:shadow-lg transition-all shadow-md"
+                    >
+                      Submit
+                    </Button>
+                  </Form.Item>
+                </Form>
+              </AnimateOnScroll>
+            </div>
           </div>
+
           <div className="col-span-6">
             <AnimateOnScroll type="fade-up" delay={0.1}>
               <LazyMap />

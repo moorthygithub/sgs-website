@@ -1,11 +1,11 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Linkedin, Twitter, Mail } from "lucide-react";
+import { Linkedin, Twitter, Mail, Users } from "lucide-react";
 import AnimateOnScroll from "../AnimateOnScroll/AnimateOnScroll";
 
 const TeamCard = ({ name, designation, image, delay }) => {
   return (
-    <AnimateOnScroll delay={delay} type="zoom-out">
+    <AnimateOnScroll delay={delay} type="zoom-in">
       <motion.div
         whileHover={{ y: -10 }}
         className="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 border border-gray-100"
@@ -20,21 +20,21 @@ const TeamCard = ({ name, designation, image, delay }) => {
               <motion.button
                 whileHover={{ scale: 1.15, y: -5 }}
                 whileTap={{ scale: 0.95 }}
-                className="bg-white hover:bg-orange-500 text-gray-700 hover:text-white p-3 rounded-xl transition-all shadow-lg"
+                className="bg-white cursor-pointer hover:bg-orange-500 text-gray-700 hover:text-white p-3 rounded-xl transition-all shadow-lg"
               >
                 <Linkedin className="w-5 h-5" />
               </motion.button>
               <motion.button
                 whileHover={{ scale: 1.15, y: -5 }}
                 whileTap={{ scale: 0.95 }}
-                className="bg-white hover:bg-orange-500 text-gray-700 hover:text-white p-3 rounded-xl transition-all shadow-lg"
+                className="bg-white cursor-pointer hover:bg-orange-500 text-gray-700 hover:text-white p-3 rounded-xl transition-all shadow-lg"
               >
                 <Twitter className="w-5 h-5" />
               </motion.button>
               <motion.button
                 whileHover={{ scale: 1.15, y: -5 }}
                 whileTap={{ scale: 0.95 }}
-                className="bg-white hover:bg-orange-500 text-gray-700 hover:text-white p-3 rounded-xl transition-all shadow-lg"
+                className="bg-white cursor-pointer hover:bg-orange-500 text-gray-700 hover:text-white p-3 rounded-xl transition-all shadow-lg"
               >
                 <Mail className="w-5 h-5" />
               </motion.button>
@@ -83,15 +83,22 @@ export default function TeamSection() {
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-b from-white to-orange-50/30">
+    <section className="pb-20 bg-gradient-to-b from-white to-orange-50/30">
       <div className="max-w-7xl mx-auto px-6">
         {/* Header */}
         <AnimateOnScroll>
           <div className="text-center mb-16 space-y-4">
-            <span className="bg-orange-100 text-orange-600 px-5 py-2 rounded-full text-sm font-semibold inline-block">
+          
+            <motion.div
+              initial={{ scale: 0 }}
+              whileInView={{ scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, type: "spring" }}
+              className="inline-flex items-center gap-2 bg-orange-50 text-orange-600 px-6 py-2.5 rounded-full text-sm font-semibold tracking-wide border border-orange-200"
+            >
+              <Users className="w-4 h-4" />
               OUR TEAM
-            </span>
-
+            </motion.div>
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 leading-tight">
               Expert Team
               <span className="bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">

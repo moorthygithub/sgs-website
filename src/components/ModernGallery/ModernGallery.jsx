@@ -112,8 +112,8 @@ export default function ModernGallery() {
               onClick={() => setActiveCategory(category)}
               className={`px-6 py-3 rounded-xl font-semibold transition-all cursor-pointer ${
                 activeCategory === category
-                  ? "bg-orange-500 text-white shadow-lg"
-                  : "bg-white text-gray-700 hover:bg-orange-50 border border-gray-200"
+                  ? "!bg-orange-500 !text-white shadow-lg"
+                  : "!bg-white !text-gray-700 hover:!bg-orange-50 border border-gray-200"
               }`}
             >
               {category}

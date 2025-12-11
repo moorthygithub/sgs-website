@@ -1,17 +1,19 @@
-import { Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import MainLayout from "./layout/MainLayout";
-import NotFound from "./pages/NotFound/NotFound";
-import About from "./pages/About/About";
-import Gallery from "./pages/Gallery/Gallery";
-import Member from "./pages/Member/Member";
-import Community from "./pages/Community/Community";
-import Contact from "./pages/Contact/Contact";
-import { Toaster } from "react-hot-toast";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
+import { Route, Routes } from "react-router-dom";
+import MemberForm from "./components/MemberSection/MemberForm";
+import MainLayout from "./layout/MainLayout";
+import About from "./pages/About/About";
+import Community from "./pages/Community/Community";
+import Contact from "./pages/Contact/Contact";
+import Gallery from "./pages/Gallery/Gallery";
+import Home from "./pages/Home";
+import Member from "./pages/Member/Member";
+import NotFound from "./pages/NotFound/NotFound";
 import Team from "./pages/Team/Team";
+import ThankYou from "./pages/ThankYou/ThankYou";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   useEffect(() => {
@@ -22,6 +24,8 @@ function App() {
   }, []);
   return (
     <>
+      <Toaster position="top-right" />
+
       <Routes>
         <Route element={<MainLayout />}>
           <Route path="/" element={<Home />} />
@@ -30,8 +34,9 @@ function App() {
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/member" element={<Member />} />
           <Route path="/community" element={<Community />} />
-          <Route path="/member" element={<Member />} />
+          <Route path="/membership" element={<Member />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/thank-you" element={<ThankYou />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

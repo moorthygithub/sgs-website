@@ -1,12 +1,11 @@
-import React from "react";
 import { motion } from "framer-motion";
 import {
-  Calendar,
-  MapPin,
-  Clock,
   ArrowRight,
-  Sparkles,
   Bell,
+  Calendar,
+  Clock,
+  MapPin,
+  Sparkles,
 } from "lucide-react";
 import AnimateOnScroll from "../AnimateOnScroll/AnimateOnScroll";
 
@@ -28,8 +27,6 @@ const EventCard = ({
         transition={{ duration: 0.4, ease: "easeOut" }}
         className="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-orange-100"
       >
-        {/* Image Container */}
-        {/* Image Container */}
         <div className="relative h-48 sm:h-56 md:h-64 overflow-hidden bg-gradient-to-br from-orange-100 via-orange-50 to-pink-50">
           <div className="absolute inset-0 flex items-center justify-center">
             <motion.div
@@ -102,7 +99,7 @@ const EventCard = ({
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="w-full bg-gradient-to-r from-orange-400 to-orange-500 text-white py-3.5 rounded-2xl font-semibold hover:from-orange-500 hover:to-orange-600 transition-all shadow-md hover:shadow-lg inline-flex items-center justify-center gap-2 group"
+            className="w-full !bg-gradient-to-r from-orange-400 to-orange-500 !text-white py-3.5 rounded-2xl font-semibold hover:from-orange-500 hover:to-orange-600 transition-all shadow-md hover:shadow-lg inline-flex items-center justify-center gap-2 group"
           >
             <span>View Details</span>
             <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
@@ -146,7 +143,7 @@ export default function EventsPage() {
         "A fun-filled day with outdoor games, sports competitions, picnic lunch, and activities for all ages.",
       tag: "New",
       delay: 0.3,
-      animationType: "fade-right",
+      animationType: "fade-up",
     },
   ];
 
@@ -182,7 +179,6 @@ export default function EventsPage() {
           </div>
         </AnimateOnScroll>
 
-        {/* Event Cards Grid */}
         <motion.div
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
           initial={{ opacity: 0, y: 40 }}
@@ -227,15 +223,17 @@ export default function EventsPage() {
                   Get Event Updates
                 </h3>
                 <div className="space-y-4">
-                  <input
-                    type="email"
-                    placeholder="Your email address"
-                    className="w-full px-5 py-4 rounded-2xl border-2 border-gray-200 focus:border-orange-400 focus:outline-none transition-colors"
-                  />
+                  <div>
+                    <input
+                      type="email"
+                      placeholder="Your email address"
+                      className="w-full px-5 py-4 rounded-2xl border-2 border-gray-200 focus:border-orange-400 focus:outline-none transition-colors"
+                    />
+                  </div>
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="w-full bg-gradient-to-r from-orange-400 to-orange-500 text-white py-4 rounded-2xl font-bold hover:from-orange-500 hover:to-orange-600 transition-all shadow-lg flex items-center justify-center gap-2"
+                    className="w-full !bg-gradient-to-r from-orange-400 to-orange-500 !text-white py-4 rounded-2xl font-bold hover:from-orange-500 hover:to-orange-600 transition-all shadow-lg flex items-center justify-center gap-2"
                   >
                     Subscribe Now
                     <ArrowRight className="w-5 h-5" />

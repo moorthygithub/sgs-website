@@ -10,7 +10,7 @@ const About = () => {
     { href: "/about", text: "About" },
   ];
   return (
-    <>
+    <div >
       <PageMeta title="About Us | Samyutk Gujarati Samaj" />
       <HeroSub
         title="About Us"
@@ -26,7 +26,7 @@ const About = () => {
       <ChairPeronCarousel />
       <AboutSection1 />
       <TeamCarousel /> */}
-    </>
+    </div>
   );
 };
 
