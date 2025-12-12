@@ -40,8 +40,8 @@ const ContactForm = () => {
           <div className="col-span-6 relative">
             <div className="relative w-full max-w-3xl mx-auto p-6 rounded-xl overflow-hidden bg-gradient-to-br from-orange-400/20 via-orange-300/10 to-orange-500/20 shadow-lg">
               <AnimateOnScroll type="zoom-in" delay={0.1}>
-                <div className="max-w-xl mx-auto text-center my-6">
-                  <h1 className="text-xl md:text-3xl font-bold text-gray-900 mb-4 leading-tight">
+                <div className="max-w-xl mx-auto text-center mb-6">
+                  <h1 className="text-xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight">
                     Contact{" "}
                     <span className="bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
                       Form

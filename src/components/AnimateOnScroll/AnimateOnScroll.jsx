@@ -32,8 +32,8 @@ const AnimateOnScroll = ({ children, type = "fade-up", delay = 0 }) => {
     <motion.div
       variants={variants[type]}
       initial="hidden"
-      whileInView="show" // 👈 auto animate whenever visible
-      viewport={{ amount: 0.2 }} // 👈 trigger sensitivity
+      whileInView="show"
+      viewport={{ amount: 0.2 }} 
       transition={{ duration: 0.8, delay }}
     >
       {children}

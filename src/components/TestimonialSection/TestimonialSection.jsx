@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, Star } from "lucide-react";
+import { useEffect, useState } from "react";
 import AnimateOnScroll from "../AnimateOnScroll/AnimateOnScroll";
 
 const testimonials = [

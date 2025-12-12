@@ -85,3 +85,23 @@ html {
   background-color: #fb924c !important;
   color: white !important;
 }
+/* For input */
+.custom-search .ant-input {
+  @apply px-4 py-3 bg-white text-black rounded-xl border-2 border-orange-500;
+}
+
+/* On focus */
+.custom-search .ant-input:focus {
+  @apply ring-2 ring-orange-300 border-orange-600;
+}
+
+/* For Search button */
+.custom-search .ant-btn {
+  @apply bg-orange-600 text-white font-semibold px-6 py-3 rounded-xl
+         hover:bg-orange-700 transition-all duration-300;
+}
+
+/* Clear icon color */
+.custom-search .ant-input-clear-icon {
+  @apply text-orange-600;
+}

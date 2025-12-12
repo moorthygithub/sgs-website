@@ -1,6 +1,4 @@
 import PageMeta from "../../components/common/PageMeta";
-import GalleryCard from "../../components/GalleryCard";
-import HeroSub from "../../components/HeroSub";
 import ModernGallery from "../../components/ModernGallery/ModernGallery";
 
 const Gallery = () => {
@@ -9,15 +7,11 @@ const Gallery = () => {
     { href: "/gallery", text: "Gallery" },
   ];
   return (
-    <>
+    <div className="mt-30">
       <PageMeta title="Gallery | Samyutk Gujarati Samaj" />
-      <HeroSub
-        title="Gallery"
-        description="Explore moments captured from our events, celebrations, and community gatherings. Our gallery showcases the spirit, culture Samyutk Gujarati Samaj."
-        breadcrumbLinks={breadcrumbLinks}
-      />
+
       <ModernGallery />
-    </>
+    </div>
   );
 };
 
