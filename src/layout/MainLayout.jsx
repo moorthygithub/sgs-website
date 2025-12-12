@@ -1,10 +1,9 @@
-import { Outlet, useLocation } from "react-router-dom";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
 import { useEffect } from "react";
-import ScrollToTop from "../components/ScrollToTop";
+import { Outlet, useLocation } from "react-router-dom";
 import RouteLoader from "../components/common/RouteLoader";
 import FooterSection from "../components/FooterSection/FooterSection";
+import Navbar from "../components/Navbar";
+import ScrollToTop from "../components/ScrollToTop";
 
 function MainLayout() {
   const { pathname } = useLocation();

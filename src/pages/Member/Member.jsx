@@ -1,12 +1,7 @@
 import PageMeta from "../../components/common/PageMeta";
-import HeroSub from "../../components/HeroSub";
 import MemberForm from "../../components/MemberSection/MemberForm";
 
 const Member = () => {
-  const breadcrumbLinks = [
-    { href: "/", text: "Home" },
-    { href: "/member", text: "Member" },
-  ];
   return (
     <>
       <PageMeta title="Member | Samyutk Gujarati Samaj" />

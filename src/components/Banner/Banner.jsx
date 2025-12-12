@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import {
   ArrowRight,
   Award,
@@ -8,8 +9,6 @@ import {
   Users,
 } from "lucide-react";
 import { useEffect, useState } from "react";
-import AnimateOnScroll from "../AnimateOnScroll/AnimateOnScroll";
-import { motion } from "framer-motion";
 
 const Banner = () => {
   const [currentSlide, setCurrentSlide] = useState(0);

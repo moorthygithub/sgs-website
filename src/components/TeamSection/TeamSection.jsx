@@ -1,6 +1,5 @@
-import React from "react";
 import { motion } from "framer-motion";
-import { Linkedin, Twitter, Mail, Users } from "lucide-react";
+import { Linkedin, Mail, Twitter, Users } from "lucide-react";
 import AnimateOnScroll from "../AnimateOnScroll/AnimateOnScroll";
 
 const TeamCard = ({ name, designation, image, delay }) => {

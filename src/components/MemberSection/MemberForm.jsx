@@ -149,7 +149,7 @@ const MemberForm = () => {
     >
       <div className="p-4 md:p-8 flex items-center justify-center relative bg-pattern mt-20">
         <div className="!w-full !max-w-6xl">
-          <div className="bg-gradient-to-br from-orange-50 to-indigo-50 rounded-2xl p-5 mb-6 border border-orange-100">
+          <div className="bg-gradient-to-br from-orange-400/20 via-orange-300/10 to-orange-500/20 rounded-2xl p-5 mb-6 border border-orange-100">
             <div className="!grid !grid-cols-1 md:!grid-cols-4 !gap-4">
               <Form.Item
                 label={
